@@ -13,12 +13,9 @@
 #include <climits>
 using namespace std;
 
-const int MAXN = 5; int a[MAXN+1]; int n; int pos[MAXN+1];
-
-
-
-void displayRes()
+vector<int> calculateRes(vector<int> a, vector<int> pos, int n)
 {
+    vector<int> returnVec; for (int i = 0; i <= 10; i++) {returnVec.push_back(-1);}
     for (int i = 1; i <= 10; i++)
     {
         bool cor = false;
@@ -26,32 +23,47 @@ void displayRes()
         {
             if (i >= pos[j] && i <= pos[j]+a[j]-1) {cor = true; break;}
         }
-        if (cor) {cout << "1 ";} else {cout << "0 ";}
+        if (cor) {returnVec[i] = 1;} else {returnVec[i] = 0;}
     }
-    cout << "\n";
+    return returnVec;
 }
 
-int maxpos(int i)
+int maxpos(int i, vector<int> a)
 {
     return 10 - a[i] +1;
 }
 
-void Try(int i, int counter)
+vector<vector<int> > Try(int i, int counter, vector<int> a, vector<int>& pos, int n)
 {
-    for (int j = i; j <= maxpos(counter); j++)
+    vector<vector<int> > res;
+    for (int j = i; j <= maxpos(counter, a); j++)
     {
         int endline = j + a[counter] - 1;
         if (endline > 10) {break;}
         else
         {
             pos[counter] = j;
-            if (counter == n) {displayRes();}
-            Try(endline+2, counter+1);
+            if (counter == n) {vector<int> tmp = calculateRes(a, pos, n); res.push_back(tmp);}
+            vector<vector<int> > tmpo = Try(endline+2, counter+1, a, pos, n);
+            for (int x = 0; x < tmpo.size(); x++){ res.push_back(tmpo[x]);  }
         }
+    }
+    return res;
+}
+
+void displayRes(vector<vector<int> > a)
+{
+    for (int i = 0; i < a.size(); i++)
+    {
+        for (int j = 1; j <= 10; j++)
+        {
+            cout << a[i][j] << " ";
+        }
+        cout << "\n";
     }
 }
 
-bool checkLine()
+bool checkLine(vector<int> a, int n)
 {
     int sum = 0;
     for (int i = 1; i <= n; i++) {sum += a[i];}
@@ -64,9 +76,14 @@ int main()
 {
     //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ifstream inp("LINER.INP");
+    int n;
     inp >> n;
-    for (int i = 1; i <= n; i++) {inp >> a[i];}
-    if(!checkLine()) {cout << "Line not sufficient." << endl; return 0;}
-    Try(1, 1);
+    vector<int> a; a.push_back(-1); // vector a : store input data
+    vector<int> pos; for (int i = 0; i <=n ; i++) {pos.push_back(-1);} //vector pos : store output data
+    for (int i = 1; i <= n; i++) {int x; inp >> x; a.push_back(x);}
+
+    if(!checkLine(a, n)) {cout << "Line not sufficient." << endl; return 0;}
+    vector<vector<int> > tryVec = Try(1, 1, a, pos, n);
+    displayRes(tryVec);
 }
 
