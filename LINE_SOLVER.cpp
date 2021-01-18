@@ -72,7 +72,7 @@ bool checkLine(vector<int> a, int n)
     return true;
 }
 
-int main()
+/*int main()
 {
     //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ifstream inp("LINER.INP");
@@ -85,5 +85,5 @@ int main()
     if(!checkLine(a, n)) {cout << "Line not sufficient." << endl; return 0;}
     vector<vector<int> > tryVec = Try(1, 1, a, pos, n);
     displayRes(tryVec);
-}
+}*/
 

@@ -2,6 +2,7 @@
 #define FUNCTIONSEXAMPLE_H
 
 #include <vector>
+#include "LINE_SOLVER.cpp"
 using namespace std;
 
 bool checkLine(vector<int>a);

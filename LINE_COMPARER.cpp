@@ -28,7 +28,7 @@ bool compareLine(vector<int> mainLine, vector<int> proposed)
     }return true;
 }
 
-int main()
+/*int main()
 {
     //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
     ifstream inp("COMPARE_INP.INP");
@@ -38,5 +38,5 @@ int main()
 
     bool comparer = compareLine(mainLine, proposedLine);
     if (comparer) {cout << "YES";} else {cout << "NO";}
-}
+}*/
 

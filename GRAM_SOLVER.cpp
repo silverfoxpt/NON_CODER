@@ -12,6 +12,7 @@
 #include <cmath>
 #include <climits>
 #include "LINE_SOLVER.h"
+#include "LINE_COMPARER.h"
 using namespace std;
 
 int n; vector< vector<int> > rows, cols;
